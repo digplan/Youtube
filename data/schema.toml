@@ -1,0 +1,73 @@
+[Tokens]
+user_id = "integer (FK)"
+token = "string"
+
+[Users]
+user_id = "integer"
+username = "string"
+email = "string"
+password_hash = "string"
+created_at = "datetime"
+updated_at = "datetime"
+
+[UserSettings]
+setting_id = "integer"
+user_id = "integer (FK)"
+dark_mode = "boolean"
+autoplay_videos = "boolean"
+email_notifications = "boolean"
+updated_at = "datetime"
+
+[Notifications]
+user_id = "integer (FK)"
+message = "string"
+
+[Videos]
+video_id = "integer"
+user_id = "integer (FK)"
+title = "string"
+description = "text"
+file_path = "string"
+thumbnail_path = "string"
+upload_date = "datetime"
+views_count = "integer"
+is_live = "boolean"
+is_short = "boolean"
+created_at = "datetime"
+
+[Topics]
+topic_id = "integer"
+name = "string"
+description = "text"
+
+[Comments]
+comment_id = "integer"
+video_id = "integer (FK)"
+user_id = "integer (FK)"
+content = "text"
+created_at = "datetime"
+
+[Likes]
+like_id = "integer"
+video_id = "integer (FK)"
+user_id = "integer (FK)"
+is_like = "boolean"
+created_at = "datetime"
+
+[Subscriptions]
+subscription_id = "integer"
+subscriber_id = "integer (FK - Users)"
+subscribed_to_id = "integer (FK - Users)"
+created_at = "datetime"
+
+[History]
+history_id = "integer"
+user_id = "integer (FK)"
+video_id = "integer (FK)"
+watched_date = "datetime"
+
+[WatchLater]
+watch_later_id = "integer"
+user_id = "integer (FK)"
+video_id = "integer (FK)"
+added_date = "datetime"
