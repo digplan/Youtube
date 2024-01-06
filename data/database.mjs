@@ -16,7 +16,7 @@ const o = {
         return rec
     },
     get(id) {
-        if (!(id in data)) return 'Not found'
+        if (!(id in data)) return false
         return JSON.stringify(data[id])
     },
     query(name) {
@@ -51,16 +51,30 @@ const o = {
         }
         return `${rec._table}:${rec[attributes.primary_key]}`
     },
+    getPermissions(user) {
+        // Get permissions from roles
+    },
     login(name, pw) {
-
+        const user = this.get(`Users:${name}`)
+        if(!user) return '';
+        return this.insert({_table: 'Tokens', user: name, permissions: this.getPermissions(user)}).token
     },
     logout(token) {
-
+        this.delete(`Tokens:${token}`)
     },
-
+    checkPermissions(token, operation) {
+        // Get permissions from roles
+    },
+    createUser(username) {
+        // return username
+    }
 }
 
 export default o
 
 o.wipe()
-o.insert({_table: "WatchLater", user_id: "1", video_id: "1", added_date: new Date().toISOString()})
+const username = o.createUser("user", "pass") // user
+const token = o.login(username)  // token
+o.insert(token, {}) // rec id
+o.logout(token) // userid
+o.insert(token)  // fail

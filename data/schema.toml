@@ -4,6 +4,7 @@ id = "integer (PK)"
 user_id = "integer (FK)"
 token = "string"
 permissions = "string"
+role = ""
 [Tokens.attributes]
 
 [Users]
