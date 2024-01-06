@@ -6,6 +6,10 @@ export default {
         let path = new URL(req.url).pathname
         if (path == '/') path = 'index.html'
         if (path != '/api') return new Response(Bun.file(`public/${path}`))
+        //r.headers?.cookie.match(/tok=(.{64})/)
+        //const cookie = `tok=${tok.id};max-age=60000000;domain=localhost`
+        //s.writeHead(200, { 'Set-Cookie': 'tok=' + tok.id, 'Content-Type': 'text/plain' })
+
         switch(req.method) {
             case 'GET':
                 if(path.match(":")) return new Response(DB.get(path))

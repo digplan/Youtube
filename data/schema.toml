@@ -1,28 +1,48 @@
 [Tokens]
+[Tokens.fields]
+id = "integer (PK)"
 user_id = "integer (FK)"
 token = "string"
+permissions = "string"
+[Tokens.attributes]
 
 [Users]
-user_id = "integer"
+[Users.fields]
 username = "string"
 email = "string"
 password_hash = "string"
 created_at = "datetime"
 updated_at = "datetime"
+[Users.attributes]
+primary_Key = "username"
+
+[Roles]
+[Roles.fields]
+name = "string"
+permissions = "string"
+
+[Roles.attributes]
+generated_primary_key = "name"
 
 [UserSettings]
-setting_id = "integer"
+[UserSettings.fields]
+setting_id = "integer (PK)"
 user_id = "integer (FK)"
 dark_mode = "boolean"
 autoplay_videos = "boolean"
 email_notifications = "boolean"
 updated_at = "datetime"
+[UserSettings.attributes]
 
 [Notifications]
+[Notifications.fields]
+id = "integer (PK)"
 user_id = "integer (FK)"
 message = "string"
+[Notifications.attributes]
 
 [Videos]
+[Videos.fields]
 video_id = "integer"
 user_id = "integer (FK)"
 title = "string"
@@ -34,40 +54,55 @@ views_count = "integer"
 is_live = "boolean"
 is_short = "boolean"
 created_at = "datetime"
+[Videos.attributes]
 
 [Topics]
+[Topics.fields]
 topic_id = "integer"
 name = "string"
 description = "text"
+[Topics.attributes]
 
 [Comments]
+[Comments.fields]
 comment_id = "integer"
 video_id = "integer (FK)"
 user_id = "integer (FK)"
 content = "text"
 created_at = "datetime"
+[Comments.attributes]
 
 [Likes]
+[Likes.fields]
 like_id = "integer"
 video_id = "integer (FK)"
 user_id = "integer (FK)"
 is_like = "boolean"
 created_at = "datetime"
+[Likes.attributes]
 
 [Subscriptions]
+[Subscriptions.fields]
 subscription_id = "integer"
 subscriber_id = "integer (FK - Users)"
 subscribed_to_id = "integer (FK - Users)"
 created_at = "datetime"
+[Subscriptions.attributes]
 
 [History]
+[History.fields]
 history_id = "integer"
 user_id = "integer (FK)"
 video_id = "integer (FK)"
 watched_date = "datetime"
+[History.attributes]
 
 [WatchLater]
+[WatchLater.fields]
 watch_later_id = "integer"
-user_id = "integer (FK)"
-video_id = "integer (FK)"
+user_id = "integer"
+video_id = "integer"
 added_date = "datetime"
+[WatchLater.attributes]
+primary_key = "watch_later_id"
+generate_primary_key = "watch_later_id"

@@ -1,10 +1,10 @@
-const data = await Bun.file("./db.json").json()
+let data = await Bun.file("./db.json").json()
 import schema from "./schema.toml"
 
 const o = {
     async insert(rec) {
-        this.validate(rec)
-        data[rec._table + ":" + new Date().toISOString()] = rec
+        const pk = this.validate(rec)
+        data[pk] = rec
         this.save()
         return rec
     },
@@ -31,17 +31,36 @@ const o = {
     async save() {
         return await Bun.write('./db.json', JSON.stringify(data, null, 2))
     },
-    validate(obj) {
-        if(!obj._id || !obj._table) throw new Error("Obj must have _id and _table!")
-        for (const k in schema[obj._table]) {
-            console.log(k)
-            if (!(k in obj)) throw new Error("field does not exist in schema")
+    async wipe() {
+        data = {}
+        this.save()
+    },
+    generateKey() {
+        return +new Date() + Math.random()
+    },
+    validate(rec) {
+        if(!rec._table) 
+            throw new Error("Obj must have _table!")
+        console.log(schema.WatchLater)
+        const {fields, attributes} = schema[rec._table]
+        for (const field in fields) {
+            if (field === attributes.generate_primary_key)
+                rec[field] = this.generateKey()
+            if (!rec.hasOwnProperty(field)) 
+                throw new Error(`field ${field} does not exist in schema ${rec._table}`)
         }
-        return true
-    }
+        return `${rec._table}:${rec[attributes.primary_key]}`
+    },
+    login(name, pw) {
+
+    },
+    logout(token) {
+
+    },
+
 }
 
 export default o
 
-console.log(o.insert({_id: 12, _table:"Tokens", user_id: "1", token: "0"}))
-
+o.wipe()
+o.insert({_table: "WatchLater", user_id: "1", video_id: "1", added_date: new Date().toISOString()})
