@@ -20,7 +20,7 @@ const o = {
         return JSON.stringify(data[id])
     },
     query(name) {
-
+        return ""
     },
     delete(id) {
         if(!(id in data)) throw new Error("id doesnt exist")

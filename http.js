@@ -8,7 +8,8 @@ export default {
         if (path != '/api') return new Response(Bun.file(`public/${path}`))
         switch(req.method) {
             case 'GET':
-                return new Response(DB.get(path))
+                if(path.match(":")) return new Response(DB.get(path))
+                else return new Response(DB.query(path))
             case 'POST':
                 return Response.json(DB.insert(await req.json()))
             case 'PUT':
